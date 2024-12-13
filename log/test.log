@@ -1,0 +1,1512 @@
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.8ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 02:52:07.897009"], ["updated_at", "2024-12-13 02:52:07.897009"]]
+  [1m[36mTRANSACTION (6.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 02:52:07.906245"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 02:52:07.922899"], ["updated_at", "2024-12-13 02:52:07.922899"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.6ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.932320"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.3ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 02:52:07.943441"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.944896"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 02:52:07.951178"], ["updated_at", "2024-12-13 02:52:07.951178"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 02:52:07.952527"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 02:52:07.953870"], ["updated_at", "2024-12-13 02:52:07.953870"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.955505"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 02:52:07.952527"], ["paid_amount", 882], ["updated_at", "2024-12-13 02:52:07.959186"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.959797"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 02:52:07.963720"], ["updated_at", "2024-12-13 02:52:07.963720"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 02:52:07.964535"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 02:52:07.965286"], ["updated_at", "2024-12-13 02:52:07.965286"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.966180"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.9ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 02:52:07.964535"], ["paid_amount", 882], ["updated_at", "2024-12-13 02:52:07.968301"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.970328"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 02:51:07.972205"], ["updated_at", "2024-12-13 02:52:07.972414"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.972980"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>294, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 02:52:07.975215"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.975876"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 02:52:07.978974"], ["updated_at", "2024-12-13 02:52:07.978974"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 02:52:07.979617"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 02:52:07.980287"], ["updated_at", "2024-12-13 02:52:07.980287"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.981072"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.3ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 02:52:07.979617"], ["paid_amount", 588], ["updated_at", "2024-12-13 02:52:07.984111"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.985400"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 02:51:07.986457"], ["updated_at", "2024-12-13 02:52:07.986680"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.987370"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 02:52:07.990569"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.991299"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 02:52:07.994342"], ["updated_at", "2024-12-13 02:52:07.994342"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 02:52:07.995206"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 02:52:07.996569"], ["updated_at", "2024-12-13 02:52:07.996569"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:07.998005"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {:status=>:failed}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:08.000458"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 02:51:08.001998"], ["updated_at", "2024-12-13 02:52:08.002385"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:08.003121"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 02:52:08.004634"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:08.005535"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 02:52:08.008572"], ["updated_at", "2024-12-13 02:52:08.008572"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 02:52:08.009254"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 02:52:08.010233"], ["updated_at", "2024-12-13 02:52:08.010233"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:08.011506"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"some error"}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:08.013354"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.4ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 02:51:08.014196"], ["updated_at", "2024-12-13 02:52:08.014443"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:08.016384"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 02:52:08.018427"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 02:52:08.019313"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.7ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:01:55.005891"], ["updated_at", "2024-12-13 03:01:55.005891"]]
+  [1m[36mTRANSACTION (55.4ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.3ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.8ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:01:55.065736"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:01:55.085841"], ["updated_at", "2024-12-13 03:01:55.085841"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.100329"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.4ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:01:55.112007"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.114029"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.5ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.4ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:01:55.121498"], ["updated_at", "2024-12-13 03:01:55.121498"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:01:55.122905"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:01:55.123812"], ["updated_at", "2024-12-13 03:01:55.123812"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.124845"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:01:55.122905"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:01:55.126809"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.127482"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:01:55.130693"], ["updated_at", "2024-12-13 03:01:55.130693"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:01:55.131591"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:01:55.132590"], ["updated_at", "2024-12-13 03:01:55.132590"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.133777"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:01:55.131591"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:01:55.136729"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.137457"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:00:55.138382"], ["updated_at", "2024-12-13 03:01:55.138574"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.139125"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>294, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:01:55.140225"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.140679"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:01:55.143456"], ["updated_at", "2024-12-13 03:01:55.143456"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:01:55.144279"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:01:55.145622"], ["updated_at", "2024-12-13 03:01:55.145622"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.147521"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.5ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:01:55.144279"], ["paid_amount", 588], ["updated_at", "2024-12-13 03:01:55.151514"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.153209"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:00:55.154670"], ["updated_at", "2024-12-13 03:01:55.155012"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.155699"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.3ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:01:55.158327"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.159306"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:01:55.162819"], ["updated_at", "2024-12-13 03:01:55.162819"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:01:55.163655"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:01:55.164778"], ["updated_at", "2024-12-13 03:01:55.164778"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.3ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.167155"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {:status=>:failed}
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.170617"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:00:55.171582"], ["updated_at", "2024-12-13 03:01:55.171886"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.172676"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:01:55.174112"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.174674"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:01:55.177432"], ["updated_at", "2024-12-13 03:01:55.177432"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:01:55.178102"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:01:55.178852"], ["updated_at", "2024-12-13 03:01:55.178852"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.180013"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"some error"}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.182085"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:00:55.182542"], ["updated_at", "2024-12-13 03:01:55.182789"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.3ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.183480"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.9ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:01:55.185673"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:01:55.187349"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.9ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:06:35.382468"], ["updated_at", "2024-12-13 03:06:35.382468"]]
+  [1m[36mTRANSACTION (6.6ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.5ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.4ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:06:35.395255"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:06:35.412800"], ["updated_at", "2024-12-13 03:06:35.412800"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.420640"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.3ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:06:35.423721"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.425344"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:06:35.433267"], ["updated_at", "2024-12-13 03:06:35.433267"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:06:35.434199"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:06:35.435251"], ["updated_at", "2024-12-13 03:06:35.435251"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.436584"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.3ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:06:35.434199"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:06:35.440602"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.441576"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:06:35.445931"], ["updated_at", "2024-12-13 03:06:35.445931"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:06:35.446750"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:06:35.447505"], ["updated_at", "2024-12-13 03:06:35.447505"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.448417"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:06:35.446750"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:06:35.450483"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.451333"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:05:35.452442"], ["updated_at", "2024-12-13 03:06:35.452666"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.453219"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>294, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:06:35.454337"], ["id", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.455501"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:06:35.459827"], ["updated_at", "2024-12-13 03:06:35.459827"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:06:35.460833"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:06:35.461603"], ["updated_at", "2024-12-13 03:06:35.461603"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.462897"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:06:35.460833"], ["paid_amount", 588], ["updated_at", "2024-12-13 03:06:35.465859"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.466922"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:05:35.468249"], ["updated_at", "2024-12-13 03:06:35.468597"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.469401"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:06:35.470919"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.471412"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:06:35.475549"], ["updated_at", "2024-12-13 03:06:35.475549"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:06:35.476366"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:06:35.477362"], ["updated_at", "2024-12-13 03:06:35.477362"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.478514"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>588, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::Post {:amount=>294, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:06:35.476366"], ["updated_at", "2024-12-13 03:06:35.482142"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.483003"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:06:35.486427"], ["updated_at", "2024-12-13 03:06:35.486427"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:06:35.487595"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:06:35.488895"], ["updated_at", "2024-12-13 03:06:35.488895"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.490217"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {:status=>:failed}
+  [1m[36mPayment Load (0.7ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.493290"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:05:35.495806"], ["updated_at", "2024-12-13 03:06:35.496682"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.497809"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:06:35.499980"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.500976"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.4ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:06:35.507566"], ["updated_at", "2024-12-13 03:06:35.507566"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.4ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:06:35.509274"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:06:35.510125"], ["updated_at", "2024-12-13 03:06:35.510125"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.511632"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"some error"}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.513081"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:05:35.513675"], ["updated_at", "2024-12-13 03:06:35.513932"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.514577"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::Post {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:06:35.515769"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:06:35.516527"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.4ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:09:36.096416"], ["updated_at", "2024-12-13 03:09:36.096416"]]
+  [1m[36mTRANSACTION (6.8ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.5ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:09:36.104891"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:09:36.121565"], ["updated_at", "2024-12-13 03:09:36.121565"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.3ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.131913"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:09:36.135981"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.137031"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.6ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:09:36.142923"], ["updated_at", "2024-12-13 03:09:36.142923"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:09:36.144928"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:09:36.146260"], ["updated_at", "2024-12-13 03:09:36.146260"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.147288"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:09:36.144928"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:09:36.149293"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.149922"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:09:36.152799"], ["updated_at", "2024-12-13 03:09:36.152799"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:09:36.153468"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:09:36.154364"], ["updated_at", "2024-12-13 03:09:36.154364"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.155779"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:09:36.153468"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:09:36.159009"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.159920"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:08:36.160956"], ["updated_at", "2024-12-13 03:09:36.161188"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.161709"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>294, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:09:36.163045"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.163521"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:09:36.166448"], ["updated_at", "2024-12-13 03:09:36.166448"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:09:36.167140"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:09:36.167910"], ["updated_at", "2024-12-13 03:09:36.167910"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.168976"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.6ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:09:36.167140"], ["paid_amount", 588], ["updated_at", "2024-12-13 03:09:36.171469"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.173103"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:08:36.174438"], ["updated_at", "2024-12-13 03:09:36.174689"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.175229"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:09:36.176841"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.177372"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:09:36.181392"], ["updated_at", "2024-12-13 03:09:36.181392"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:09:36.182351"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:09:36.183242"], ["updated_at", "2024-12-13 03:09:36.183242"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.184124"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>294, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.4ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:09:36.182351"], ["updated_at", "2024-12-13 03:09:36.188390"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.189661"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:09:36.194206"], ["updated_at", "2024-12-13 03:09:36.194206"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:09:36.195026"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:09:36.195803"], ["updated_at", "2024-12-13 03:09:36.195803"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.196538"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.197690"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:08:36.198210"], ["updated_at", "2024-12-13 03:09:36.198381"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.198849"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:09:36.199998"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.200497"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.5ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:09:36.205375"], ["updated_at", "2024-12-13 03:09:36.205375"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:09:36.206863"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:09:36.207889"], ["updated_at", "2024-12-13 03:09:36.207889"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.209431"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"some error"}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.210744"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:08:36.211270"], ["updated_at", "2024-12-13 03:09:36.211476"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.212052"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:09:36.213355"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:09:36.213986"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.5ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.168617"], ["updated_at", "2024-12-13 03:19:24.168617"]]
+  [1m[36mTRANSACTION (6.3ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.177683"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.196395"], ["updated_at", "2024-12-13 03:19:24.196395"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.204831"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:19:24.210288"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.4ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.211198"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.216112"], ["updated_at", "2024-12-13 03:19:24.216112"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.216986"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.217722"], ["updated_at", "2024-12-13 03:19:24.217722"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.218773"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:19:24.216986"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:19:24.221572"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.222888"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.226192"], ["updated_at", "2024-12-13 03:19:24.226192"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.227067"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.228183"], ["updated_at", "2024-12-13 03:19:24.228183"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.229035"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:19:24.227067"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:19:24.230867"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.231487"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:18:24.232366"], ["updated_at", "2024-12-13 03:19:24.232568"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.233260"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>294, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:19:24.234913"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.235570"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.238975"], ["updated_at", "2024-12-13 03:19:24.238975"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.239837"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.240585"], ["updated_at", "2024-12-13 03:19:24.240585"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.241428"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:19:24.239837"], ["paid_amount", 588], ["updated_at", "2024-12-13 03:19:24.244097"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.244667"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:18:24.245549"], ["updated_at", "2024-12-13 03:19:24.245728"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.246198"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:19:24.247864"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.248507"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.251855"], ["updated_at", "2024-12-13 03:19:24.251855"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.252817"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.253693"], ["updated_at", "2024-12-13 03:19:24.253693"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.254555"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>294, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:19:24.252817"], ["updated_at", "2024-12-13 03:19:24.257743"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.258340"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.262197"], ["updated_at", "2024-12-13 03:19:24.262197"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.262986"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.264087"], ["updated_at", "2024-12-13 03:19:24.264087"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.265319"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.266461"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:18:24.267116"], ["updated_at", "2024-12-13 03:19:24.267330"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.267791"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:19:24.268951"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.269450"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.272242"], ["updated_at", "2024-12-13 03:19:24.272242"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.273118"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.274003"], ["updated_at", "2024-12-13 03:19:24.274003"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.275181"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"some error"}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.276366"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:18:24.276831"], ["updated_at", "2024-12-13 03:19:24.277048"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.277559"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:19:24.279060"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.279549"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:19:24.282091"], ["updated_at", "2024-12-13 03:19:24.282091"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:19:24.282775"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:19:24.283667"], ["updated_at", "2024-12-13 03:19:24.283667"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.284619"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"execution expired"}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.285925"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:18:24.286343"], ["updated_at", "2024-12-13 03:19:24.286507"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.287068"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:19:24.289048"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:19:24.289765"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (1.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.630023"], ["updated_at", "2024-12-13 03:40:36.630023"]]
+  [1m[36mTRANSACTION (6.5ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.3ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.641079"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.660651"], ["updated_at", "2024-12-13 03:40:36.660651"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.674880"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:40:36.678152"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.679099"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.5ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.4ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.687613"], ["updated_at", "2024-12-13 03:40:36.687613"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.689094"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.689919"], ["updated_at", "2024-12-13 03:40:36.689919"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.690751"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:40:36.689094"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:40:36.693067"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.694245"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.699940"], ["updated_at", "2024-12-13 03:40:36.699940"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.700883"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.701714"], ["updated_at", "2024-12-13 03:40:36.701714"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.702702"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:40:36.700883"], ["paid_amount", 882], ["updated_at", "2024-12-13 03:40:36.704692"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.705282"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:39:36.706094"], ["updated_at", "2024-12-13 03:40:36.706268"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.706799"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>294, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:40:36.708154"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.708664"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.713259"], ["updated_at", "2024-12-13 03:40:36.713259"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.714659"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.716728"], ["updated_at", "2024-12-13 03:40:36.716728"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.717665"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:40:36.714659"], ["paid_amount", 588], ["updated_at", "2024-12-13 03:40:36.719856"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.720394"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:39:36.721266"], ["updated_at", "2024-12-13 03:40:36.721433"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.721959"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:40:36.725965"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.727171"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.731164"], ["updated_at", "2024-12-13 03:40:36.731164"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.732094"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.733476"], ["updated_at", "2024-12-13 03:40:36.733476"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.734799"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>882, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>588, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+Api::PaymentProviderExample::create {:amount=>294, :subscription_id=>1} -> {"status"=>"insufficient_funds"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (1.7ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-20 03:40:36.732094"], ["updated_at", "2024-12-13 03:40:36.742390"], ["id", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.746493"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.751090"], ["updated_at", "2024-12-13 03:40:36.751090"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.751872"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.752832"], ["updated_at", "2024-12-13 03:40:36.752832"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (1.3ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.754058"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed}
+  [1m[36mPayment Load (0.6ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.762632"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.6ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:39:36.766829"], ["updated_at", "2024-12-13 03:40:36.767578"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.4ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.770383"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.2ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:40:36.774251"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.775198"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.779788"], ["updated_at", "2024-12-13 03:40:36.779788"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.2ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.780959"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.781935"], ["updated_at", "2024-12-13 03:40:36.781935"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.783036"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"some error"}
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.785533"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:39:36.786951"], ["updated_at", "2024-12-13 03:40:36.787226"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.787985"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:40:36.789422"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.790024"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("start_at", "end_at", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["start_at", "2024-12-13"], ["end_at", "2024-12-27"], ["price", 11.76], ["created_at", "2024-12-13 03:40:36.793969"], ["updated_at", "2024-12-13 03:40:36.793969"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."subscription_id" = ? LIMIT ?[0m  [["subscription_id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Create (0.1ms)[0m  [1m[32mINSERT INTO "payments" ("subscription_id", "process_at", "status", "amount", "paid_amount", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["subscription_id", 1], ["process_at", "2024-12-13 03:40:36.794911"], ["status", "active"], ["amount", 1176], ["paid_amount", 0], ["created_at", "2024-12-13 03:40:36.795804"], ["updated_at", "2024-12-13 03:40:36.795804"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.796622"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {:status=>:failed, :exception=>"execution expired"}
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.797797"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.1ms)[0m  [1m[33mUPDATE "payments" SET "process_at" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["process_at", "2024-12-13 03:39:36.798437"], ["updated_at", "2024-12-13 03:40:36.798800"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.2ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND 1=1 ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.799437"], ["status", "active"], ["LIMIT", 1]]
+Api::PaymentProviderExample::create {:amount=>1176, :subscription_id=>1} -> {"status"=>"success"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mBEGIN immediate TRANSACTION[0m
+  [1m[36mPayment Update (0.5ms)[0m  [1m[33mUPDATE "payments" SET "status" = ?, "paid_amount" = ?, "updated_at" = ? WHERE "payments"."id" = ?[0m  [["status", "paid"], ["paid_amount", 1176], ["updated_at", "2024-12-13 03:40:36.802449"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mCOMMIT TRANSACTION[0m
+  [1m[36mPayment Load (0.1ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."process_at" <= ? AND "payments"."status" = ? AND "payments"."id" != ? ORDER BY "payments"."id" ASC LIMIT ?[0m  [["process_at", "2024-12-13 03:40:36.804300"], ["status", "active"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mPayment Load (0.0ms)[0m  [1m[34mSELECT "payments".* FROM "payments" WHERE "payments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "payments"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'payments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mTRUNCATE TABLE "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM "subscriptions"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'subscriptions';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
