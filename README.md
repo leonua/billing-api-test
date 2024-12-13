@@ -2,7 +2,7 @@
 
 Tested on Ruby 3.2.3
 
-After fetching the project from git, 3 command should be enough:
+After fetching the project from git, 3 commands should be enough:
 `bundle install`
 `rake db:migrate`
 `rspec`
